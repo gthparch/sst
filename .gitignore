@@ -1,3 +1,7 @@
 *.o
 configure
+config.log
+config.status
+aclocal.m4
+Makefile.in
 
