@@ -1,0 +1,3 @@
+[submodule "sst/elements"]
+	path = sst/elements
+	url = https://github.com/sstsimulator/sst-elements.git
