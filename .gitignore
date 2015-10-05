@@ -1,7 +1,10 @@
-*.o
 configure
+autom4te.cache
+libtool
 config.log
 config.status
 aclocal.m4
 Makefile.in
-
+sst-*.tar.bz2
+sst-*.tar.gz
+tags
