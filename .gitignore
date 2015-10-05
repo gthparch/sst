@@ -8,3 +8,4 @@ Makefile.in
 sst-*.tar.bz2
 sst-*.tar.gz
 tags
+Makefile
