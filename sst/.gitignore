@@ -1,0 +1,11 @@
+Makefile.in
+Makefile
+sst.x
+sst_config.h
+sst_stdint.h
+Makefile.am
+sst_config.h.in
+stamp-h1
+libltdl
+SST-*.pc
+
