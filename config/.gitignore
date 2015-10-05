@@ -14,3 +14,4 @@ install-sh
 compile
 sst_m4_config_include.m4
 
+ltargz.m4
