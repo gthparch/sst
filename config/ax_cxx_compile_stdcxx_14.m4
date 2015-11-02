@@ -52,7 +52,7 @@ AC_DEFUN([AX_CXX_COMPILE_STDCXX_1Y], [
     check_type&& cr = static_cast<check_type&&>(c);],,
   ax_cv_cxx_compile_cxx_14_cxx=yes, ax_cv_cxx_compile_cxx_14_cxx=no)
   CXXFLAGS=$ac_save_CXXFLAGS
-  AS_IF([test "$ax_cv_cxx_compile_cxx_1y_cxx" = "yes" ], [SST_CXX1Y_FLAGS="-std=c++14"])
+  AS_IF([test "$ax_cv_cxx_compile_cxx_14_cxx" = "yes" ], [SST_CXX1Y_FLAGS="-std=c++14"])
 
   AC_LANG_RESTORE
   ])
@@ -89,11 +89,10 @@ AC_DEFUN([AX_CXX_COMPILE_STDCXX_1Y], [
   ])
 
   AS_IF( [test "$ax_cv_cxx_compile_cxx1y_native" = "yes" -o "$ax_cv_cxx_compile_cxx1y_cxx" = "yes" -o "$ax_cv_cxx_compile_cxx14_cxx" = "yes" ], 
-	[found_cxx="yes"], [found_cxx="no"] )
+	[found_cxx1y="yes"], [found_cxx1y="no"] )
 
   AC_DEFINE(HAVE_STDCXX_1Y, [1], [Define if C++ supports C++14 features.])
   AC_SUBST([SST_CXX1Y_FLAGS])
-  CXXFLAGS="$CXXFLAGS $SST_CXX1Y_FLAGS"
-  AM_CONDITIONAL([HAVE_STDCXX_1Y], [test "x$found_cxx" = "xyes"])
+  AM_CONDITIONAL([HAVE_STDCXX_1Y], [test "x$found_cxx1y" = "xyes"])
 ])
 

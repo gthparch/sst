@@ -40,8 +40,14 @@ AC_CACHE_SAVE
 AC_CHECK_PROG([DOXYGEN], [doxygen], [doxygen])
 AM_CONDITIONAL([HAVE_DOXYGEN], [test "$DOXYGEN" = "doxygen"])
 
-dnl Check for C++11 features
+dnl Check for C++11 and C++14 features
+AC_CXX_COMPILE_STDCXX_1Y
 AC_CXX_COMPILE_STDCXX_0X
+
+dnl Set the appropriate flags which have been discovered by the compiler detection
+AS_IF([test "x$found_cxx1y" = "xyes"],
+	[CXXFLAGS="$CXXFLAGS $SST_CXX1Y_FLAGS"],
+	[CXXFLAGS="$CXXFLAGS $SST_CXX0X_FLAGS"])
 
 dnl Check for the vendor of the compiler
 AX_CXX_COMPILE_DETECT
@@ -314,6 +320,13 @@ printf "%38s : %s\n" "Linker" "$LD"
 printf "%38s : %s\n" "Preprocessor Options" "$CPPFLAGS"
 printf "%38s : %s\n" "C Compiler Options" "$CFLAGS"
 printf "%38s : %s\n" "C++ Compiler Options" "$CXXFLAGS"
+
+if test "x$found_cxx1y" = "xyes"; then
+printf "%38s : %s\n" "C++ Standard Compliance" "C++1Y/14"
+else
+printf "%38s : %s\n" "C++ Standard Compliance" "C++11"
+fi
+
 printf "%38s : %s\n" "Linker Options" "$LDFLAGS"
 printf "%38s : %s\n" "Boost Library Preprocessor" "$BOOST_CPPFLAGS"
 printf "%38s : %s\n" "Boost Library Linker Options" "$BOOST_LDFLAGS"
