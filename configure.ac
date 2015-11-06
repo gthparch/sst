@@ -89,8 +89,8 @@ AC_DEFINE_UNQUOTED([SST_WANT_POLYMORPHIC_ARCHIVE], [$want_polymorphic],
   [defined to 1 if want boost polymorphic serialization archives])
 
 AC_DEFINE_UNQUOTED([BOOST_LIBDIR], ["$BOOST_LIBDIR"], [Defines the location of the Boost libraries as an SST header definition] )
+AC_DEFINE_UNQUOTED([BOOST_CPPFLAGS], ["$BOOST_CPPFLAGS"], [Defines the location of the Boost header files as an SST define] )
 AC_DEFINE_UNQUOTED([SST_INSTALL_PREFIX], ["$prefix"], [Defines the location SST will be installed in])
-
 
 SST_CHECK_MEM_POOL()
 SST_CHECK_PARAM_WARNINGS()
@@ -291,6 +291,16 @@ fi
 
 AC_SUBST(SST_SVN_REVISION)
 AC_DEFINE_UNQUOTED([SST_SVN_REVISION], ["$SST_SVN_REVISION"], [SST SVN Revision])
+
+AC_DEFINE_UNQUOTED([SST_CPPFLAGS], ["$CPPFLAGS"], [C Preprocessor Flags used for SST])
+AC_DEFINE_UNQUOTED([SST_CFLAGS], ["$CFLAGS"], [C Flags used for SST])
+AC_DEFINE_UNQUOTED([SST_CXXFLAGS], ["$CXXFLAGS"], [C++ Flags used for SST])
+AC_DEFINE_UNQUOTED([SST_CC], ["$CC"], [C Compiler used for SST])
+AC_DEFINE_UNQUOTED([SST_CXX], ["$CXX"], [C++ Compiler used for SST])
+AC_DEFINE_UNQUOTED([SST_MPICC], ["$MPICC"], [MPI C Compiler used for SST])
+AC_DEFINE_UNQUOTED([SST_MPICXX], ["$MPICXX"], [MPI C++ Compiler used for SST])
+AC_DEFINE_UNQUOTED([SST_LD], ["$LD"], [Linker used for SST])
+AC_DEFINE_UNQUOTED([SST_LDFLAGS], ["$LDFLAGS"], [Linker Flags used for SST])
 
 AC_CONFIG_FILES([
   Makefile
