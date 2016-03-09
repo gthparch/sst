@@ -40,8 +40,14 @@ AC_CACHE_SAVE
 AC_CHECK_PROG([DOXYGEN], [doxygen], [doxygen])
 AM_CONDITIONAL([HAVE_DOXYGEN], [test "$DOXYGEN" = "doxygen"])
 
-dnl Check for C++11 features
+dnl Check for C++11 and C++14 features
+AC_CXX_COMPILE_STDCXX_1Y
 AC_CXX_COMPILE_STDCXX_0X
+
+dnl Set the appropriate flags which have been discovered by the compiler detection
+AS_IF([test "x$found_cxx1y" = "xyes"],
+	[CXXFLAGS="$CXXFLAGS $SST_CXX1Y_FLAGS"],
+	[CXXFLAGS="$CXXFLAGS $SST_CXX0X_FLAGS"])
 
 dnl Check for the vendor of the compiler
 AX_CXX_COMPILE_DETECT
@@ -83,8 +89,8 @@ AC_DEFINE_UNQUOTED([SST_WANT_POLYMORPHIC_ARCHIVE], [$want_polymorphic],
   [defined to 1 if want boost polymorphic serialization archives])
 
 AC_DEFINE_UNQUOTED([BOOST_LIBDIR], ["$BOOST_LIBDIR"], [Defines the location of the Boost libraries as an SST header definition] )
+AC_DEFINE_UNQUOTED([BOOST_CPPFLAGS], ["$BOOST_CPPFLAGS"], [Defines the location of the Boost header files as an SST define] )
 AC_DEFINE_UNQUOTED([SST_INSTALL_PREFIX], ["$prefix"], [Defines the location SST will be installed in])
-
 
 SST_CHECK_MEM_POOL()
 SST_CHECK_PARAM_WARNINGS()
@@ -286,6 +292,16 @@ fi
 AC_SUBST(SST_SVN_REVISION)
 AC_DEFINE_UNQUOTED([SST_SVN_REVISION], ["$SST_SVN_REVISION"], [SST SVN Revision])
 
+AC_DEFINE_UNQUOTED([SST_CPPFLAGS], ["$CPPFLAGS"], [C Preprocessor Flags used for SST])
+AC_DEFINE_UNQUOTED([SST_CFLAGS], ["$CFLAGS"], [C Flags used for SST])
+AC_DEFINE_UNQUOTED([SST_CXXFLAGS], ["$CXXFLAGS"], [C++ Flags used for SST])
+AC_DEFINE_UNQUOTED([SST_CC], ["$CC"], [C Compiler used for SST])
+AC_DEFINE_UNQUOTED([SST_CXX], ["$CXX"], [C++ Compiler used for SST])
+AC_DEFINE_UNQUOTED([SST_MPICC], ["$MPICC"], [MPI C Compiler used for SST])
+AC_DEFINE_UNQUOTED([SST_MPICXX], ["$MPICXX"], [MPI C++ Compiler used for SST])
+AC_DEFINE_UNQUOTED([SST_LD], ["$LD"], [Linker used for SST])
+AC_DEFINE_UNQUOTED([SST_LDFLAGS], ["$LDFLAGS"], [Linker Flags used for SST])
+
 AC_CONFIG_FILES([
   Makefile
   doc/Makefile
@@ -314,6 +330,13 @@ printf "%38s : %s\n" "Linker" "$LD"
 printf "%38s : %s\n" "Preprocessor Options" "$CPPFLAGS"
 printf "%38s : %s\n" "C Compiler Options" "$CFLAGS"
 printf "%38s : %s\n" "C++ Compiler Options" "$CXXFLAGS"
+
+if test "x$found_cxx1y" = "xyes"; then
+printf "%38s : %s\n" "C++ Standard Compliance" "C++1Y/14"
+else
+printf "%38s : %s\n" "C++ Standard Compliance" "C++11"
+fi
+
 printf "%38s : %s\n" "Linker Options" "$LDFLAGS"
 printf "%38s : %s\n" "Boost Library Preprocessor" "$BOOST_CPPFLAGS"
 printf "%38s : %s\n" "Boost Library Linker Options" "$BOOST_LDFLAGS"

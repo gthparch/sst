@@ -112,14 +112,9 @@ AC_DEFUN([AX_CXX_COMPILE_STDCXX_0X], [
   ])
 
   AS_IF( [test "$ax_cv_cxx_compile_cxx0x_native" = "yes" -o "$ax_cv_cxx_compile_cxx0x_cxx" = "yes" -o "$ax_cv_cxx_compile_cxx11_cxx" = "yes" ], 
-	[found_cxx="yes"], [found_cxx="no"] )
+	[found_cxx0x="yes"], [found_cxx0x="no"] )
 
-  AS_IF( [test "x$found_cxx" = "xno"],
-	[AC_MSG_ERROR([Could not found C++11 support but this is required for SST to successfully build.], [1]) ])
-
-  AC_DEFINE(HAVE_STDCXX_0X, [1], [Define if C++ supports C++11 features.])
+  AS_IF( [test "x$found_cxx1y" = "xno" -a "x$found_cxx0x" = "xno"],
+	[AC_MSG_ERROR([Could not found C++14 or C++11 support but this is required for SST to successfully build.], [1]) ])
   AC_SUBST([SST_CXX0X_FLAGS])
-  CXXFLAGS="$CXXFLAGS $SST_CXX0X_FLAGS"
-  AM_CONDITIONAL([HAVE_STDCXX_0X], [test "x$found_cxx" = "xyes"])
 ])
-
