@@ -1,9 +1,0 @@
-[submodule "sst/elements"]
-	path = sst/elements
-  url = github.com/gthparch/sst-elements 
-[submodule "sst/core"]
-	path = sst/core
-	url = github.com/gthparch/sst-core
-[submodule "sst/elements/macsimComponent"]
-  path = sst/elements/macsimComponent
-  url = github.com/gthparch/macsim_devel
